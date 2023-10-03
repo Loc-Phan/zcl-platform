@@ -1,0 +1,68 @@
+<div class="container">
+	<div class="mt-16 flex justify-between items-center px-48">
+		<img
+			class="w-[34vw] h-[26vw]"
+			src="assets/images/sign-in-banner.png"
+			alt="sign-in-banner"
+		/>
+		<div class="w-96">
+			<p class="mb-12 text-2.75xl font-bold">Sign in to ZCL platform</p>
+			<div>
+				<div class="mb-6">
+					<p class="mb-2 text-black1 font-medium">Username</p>
+					<input
+						type="text"
+						class="w-full h-11 border rounded-lg border-gray1 px-4 py-3"
+						placeholder="you@company.com"
+					/>
+				</div>
+				<div class="mb-6">
+					<p class="mb-2 text-black1 font-medium">Password</p>
+					<div class="relative">
+						<input
+							[type]="showPassword ? 'text' : 'password'"
+							class="w-full h-11 border rounded-lg border-gray px-4 py-3"
+							placeholder="Enter your password"
+						/>
+						<div
+							class="absolute right-3 top-3 w-5 h-5"
+							(click)="showPassword = !showPassword"
+						>
+							<img
+								src="{{
+									showPassword
+										? 'assets/icons/eye.svg'
+										: 'assets/icons/fi_eye-off.svg'
+								}}"
+								alt=""
+							/>
+						</div>
+					</div>
+					<p
+						class="mt-2 text-sm text-red-600 font-medium text-end cursor-pointer"
+					>
+						Forgot password?
+					</p>
+				</div>
+				<button class="h-11 w-full rounded-lg bg-blue1 text-white font-medium">
+					Sign in
+				</button>
+				<div class="mt-4 flex gap-1">
+					<p class="text-black1 font-normal">Don’t have an account?</p>
+					<a routerLink="/sign-up" class="text-blue2 font-medium">Sign up</a>
+				</div>
+				<div class="mt-10 flex flex-col items-center">
+					<p class="text-black font-medium">Or sign in with</p>
+					<div class="mt-6 flex gap-10">
+						<div *ngFor="let social of socials">
+							<img
+								class="cursor-pointer"
+								src="{{ 'assets/icons/' + social + '.svg' }}"
+							/>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
