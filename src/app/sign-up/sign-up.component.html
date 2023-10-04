@@ -1,0 +1,91 @@
+<div class="container">
+	<div class="py-16 flex justify-between px-36">
+		<img
+			class="mt-24 w-[34vw] h-[26vw]"
+			src="assets/images/sign-in-banner.png"
+			alt="sign-in-banner"
+		/>
+		<div class="w-[30rem]">
+			<p class="mb-12 text-2.75xl font-bold">Sign up to ZCL platform</p>
+			<div>
+				<div class="flex gap-6 mb-6">
+					<div>
+						<p class="mb-2 text-black1 font-medium">First Name</p>
+						<input
+							type="text"
+							class="w-full h-10 border rounded-lg border-gray1 px-4 py-3"
+							placeholder="Your first name"
+						/>
+					</div>
+					<div>
+						<p class="mb-2 text-black1 font-medium">Last Name</p>
+						<input
+							type="text"
+							class="w-full h-10 border rounded-lg border-gray1 px-4 py-3"
+							placeholder="Your last name"
+						/>
+					</div>
+				</div>
+				<div class="mb-6">
+					<p class="mb-2 text-black1 font-medium">Company Email</p>
+					<input
+						type="text"
+						class="w-full h-10 border rounded-lg border-gray1 px-4 py-3"
+						placeholder="you@company.com"
+					/>
+				</div>
+				<div class="mb-6">
+					<p class="mb-2 text-black1 font-medium">Password</p>
+					<div class="relative">
+						<input
+							[type]="showPassword ? 'text' : 'password'"
+							class="w-full h-10 border rounded-lg border-gray px-4 py-3"
+							placeholder="Enter your password"
+						/>
+						<div
+							class="absolute right-3 top-3 w-5 h-5 cursor-pointer"
+							(click)="showPassword = !showPassword"
+						>
+							<img
+								src="{{
+									showPassword
+										? 'assets/icons/eye.svg'
+										: 'assets/icons/fi_eye-off.svg'
+								}}"
+								alt=""
+							/>
+						</div>
+					</div>
+				</div>
+				<div class="mb-6">
+					<p class="mb-2 text-black1 font-medium">Country</p>
+					<select class="w-full h-10 border rounded-lg border-gray1 px-4">
+						<option value="" selected></option>
+						<option *ngFor="let i of countries" [value]="i">{{ i }}</option>
+					</select>
+				</div>
+				<div class="flex gap-2">
+					<input type="checkbox" />
+					<p class="text-sm text-gray2">
+						I agree to the ZCL platform Privacy Policy and Terms
+					</p>
+				</div>
+				<div class="flex gap-2">
+					<input type="checkbox" />
+					<p class="text-sm text-gray2">
+						I would like to receive marketing communication from ZCL email
+					</p>
+				</div>
+				<button
+					class="mt-10 h-10 w-full rounded-lg bg-blue1 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 text-white font-medium"
+				>
+					Sign up
+				</button>
+				<div class="mt-4 flex gap-1">
+					<p class="text-black1 font-normal">Already have an account?</p>
+					<a routerLink="/sign-in" class="text-blue2 font-medium">Sign in</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

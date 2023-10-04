@@ -2,3 +2,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+select {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	background: transparent;
+	background-image: url("./assets/icons/select-icon.svg");
+	background-repeat: no-repeat;
+	background-position-x: 97%;
+	background-position-y: 0.6rem;
+}
