@@ -7,7 +7,7 @@
 		/>
 		<div class="w-[30rem]">
 			<p class="mb-12 text-2.75xl font-bold">Sign up to ZCL platform</p>
-			<div>
+			<form [formGroup]="signInForm" class="form-group" (ngSubmit)="onSubmit()">
 				<div class="flex gap-6 mb-6">
 					<div>
 						<p class="mb-2 text-black1 font-medium">First Name</p>
@@ -30,18 +30,51 @@
 					<p class="mb-2 text-black1 font-medium">Company Email</p>
 					<input
 						type="text"
-						class="w-full h-10 border rounded-lg border-gray1 px-4 py-3"
+						[class.is-invalid]="
+							f.email.invalid && (f.email.touched || hasSubmitted)
+						"
+						formControlName="email"
+						class="form-control w-full h-10 border rounded-lg border-gray1 px-4 py-3"
 						placeholder="you@company.com"
 					/>
+					<div
+						*ngIf="f.email.invalid && (f.email.touched || hasSubmitted)"
+						class="text-red-600"
+					>
+						<p *ngIf="f.email.errors?.['required']">Email is required</p>
+						<p *ngIf="f.email.errors?.['email']">
+							Email must be a valid email address
+						</p>
+					</div>
 				</div>
 				<div class="mb-6">
 					<p class="mb-2 text-black1 font-medium">Password</p>
 					<div class="relative">
 						<input
 							[type]="showPassword ? 'text' : 'password'"
+							[class.is-invalid]="
+								f.password.invalid && (f.password.touched || hasSubmitted)
+							"
+							formControlName="password"
 							class="w-full h-10 border rounded-lg border-gray px-4 py-3"
 							placeholder="Enter your password"
 						/>
+						<div
+							*ngIf="f.password.invalid && (f.password.touched || hasSubmitted)"
+							class="text-red-600"
+						>
+							<p *ngIf="f.password.errors?.['required']">
+								Password is required
+							</p>
+							<p *ngIf="f.password.errors?.['minlength']">
+								Password should be minimum 6 characters
+							</p>
+							<p
+								*ngIf="!f.password.errors?.['minlength'] && f.password.errors?.['pattern']"
+							>
+								Only alphabet, digit and at least one of !@#$%^&*
+							</p>
+						</div>
 						<div
 							class="absolute right-3 top-3 w-5 h-5 cursor-pointer"
 							(click)="showPassword = !showPassword"
@@ -78,6 +111,8 @@
 				</div>
 				<button
 					class="mt-10 h-10 w-full rounded-lg bg-blue1 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 text-white font-medium"
+					[disabled]="signInForm.invalid"
+					type="submit"
 				>
 					Sign up
 				</button>
@@ -85,7 +120,7 @@
 					<p class="text-black1 font-normal">Already have an account?</p>
 					<a routerLink="/sign-in" class="text-blue2 font-medium">Sign in</a>
 				</div>
-			</div>
+			</form>
 		</div>
 	</div>
 </div>
