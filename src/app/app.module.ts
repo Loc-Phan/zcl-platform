@@ -7,7 +7,8 @@ import { SignInComponent } from "./sign-in/sign-in.component";
 import { SignUpComponent } from "./sign-up/sign-up.component";
 import { HomeComponent } from "./home/home.component";
 import { ReactiveFormsModule } from "@angular/forms";
-import { HttpClientModule } from "@angular/common/http";
+import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
+import { jwtInterceptor } from "./shared/interceptors/jwt.interceptor";
 
 @NgModule({
 	declarations: [AppComponent, SignInComponent, SignUpComponent, HomeComponent],
@@ -17,7 +18,13 @@ import { HttpClientModule } from "@angular/common/http";
 		ReactiveFormsModule,
 		HttpClientModule,
 	],
-	providers: [],
+	providers: [
+		{
+			provide: HTTP_INTERCEPTORS,
+			useClass: jwtInterceptor,
+			multi: true,
+		},
+	],
 	bootstrap: [AppComponent],
 })
 export class AppModule {}
