@@ -7,42 +7,61 @@
 		/>
 		<div class="w-[30rem]">
 			<p class="mb-12 text-2.75xl font-bold">Sign up to ZCL platform</p>
-			<form [formGroup]="signInForm" class="form-group" (ngSubmit)="onSubmit()">
+			<form [formGroup]="signUpForm" class="form-group" (ngSubmit)="onSubmit()">
 				<div class="flex gap-6 mb-6">
 					<div>
 						<p class="mb-2 text-black1 font-medium">First Name</p>
 						<input
 							type="text"
+							formControlName="firstName"
 							class="w-full h-10 border rounded-lg border-gray1 px-4 py-3"
 							placeholder="Your first name"
 						/>
+						<div
+							*ngIf="
+								f?.['firstName']?.invalid && (f?.['firstName']?.touched || hasSubmitted)
+							"
+							class="text-red-600"
+						>
+							<p *ngIf="f?.['firstName']?.errors?.['required']">
+								(*) First name is required
+							</p>
+						</div>
 					</div>
 					<div>
 						<p class="mb-2 text-black1 font-medium">Last Name</p>
 						<input
 							type="text"
+							formControlName="lastName"
 							class="w-full h-10 border rounded-lg border-gray1 px-4 py-3"
 							placeholder="Your last name"
 						/>
+						<div
+							*ngIf="f?.['lastName']?.invalid && (f?.['lastName']?.touched || hasSubmitted)"
+							class="text-red-600"
+						>
+							<p *ngIf="f?.['lastName']?.errors?.['required']">
+								(*) Last name is required
+							</p>
+						</div>
 					</div>
 				</div>
 				<div class="mb-6">
 					<p class="mb-2 text-black1 font-medium">Company Email</p>
 					<input
 						type="text"
-						[class.is-invalid]="
-							f.email.invalid && (f.email.touched || hasSubmitted)
-						"
 						formControlName="email"
 						class="form-control w-full h-10 border rounded-lg border-gray1 px-4 py-3"
 						placeholder="you@company.com"
 					/>
 					<div
-						*ngIf="f.email.invalid && (f.email.touched || hasSubmitted)"
+						*ngIf="f?.['email']?.invalid && (f?.['email']?.touched || hasSubmitted)"
 						class="text-red-600"
 					>
-						<p *ngIf="f.email.errors?.['required']">Email is required</p>
-						<p *ngIf="f.email.errors?.['email']">
+						<p *ngIf="f?.['email']?.errors?.['required']">
+							(*) Email is required
+						</p>
+						<p *ngIf="f?.['email']?.errors?.['email']">
 							Email must be a valid email address
 						</p>
 					</div>
@@ -52,25 +71,22 @@
 					<div class="relative">
 						<input
 							[type]="showPassword ? 'text' : 'password'"
-							[class.is-invalid]="
-								f.password.invalid && (f.password.touched || hasSubmitted)
-							"
 							formControlName="password"
 							class="w-full h-10 border rounded-lg border-gray px-4 py-3"
 							placeholder="Enter your password"
 						/>
 						<div
-							*ngIf="f.password.invalid && (f.password.touched || hasSubmitted)"
+							*ngIf="f?.['password']?.invalid && (f?.['password']?.touched || hasSubmitted)"
 							class="text-red-600"
 						>
-							<p *ngIf="f.password.errors?.['required']">
-								Password is required
+							<p *ngIf="f?.['password']?.errors?.['required']">
+								(*) Password is required
 							</p>
-							<p *ngIf="f.password.errors?.['minlength']">
+							<p *ngIf="f?.['password']?.errors?.['minlength']">
 								Password should be minimum 6 characters
 							</p>
 							<p
-								*ngIf="!f.password.errors?.['minlength'] && f.password.errors?.['pattern']"
+								*ngIf="!f?.['password']?.errors?.['minlength'] && f?.['password']?.errors?.['pattern']"
 							>
 								Only alphabet, digit and at least one of !@#$%^&*
 							</p>
@@ -92,15 +108,36 @@
 				</div>
 				<div class="mb-6">
 					<p class="mb-2 text-black1 font-medium">Country</p>
-					<select class="w-full h-10 border rounded-lg border-gray1 px-4">
+					<select
+						class="w-full h-10 border rounded-lg border-gray1 px-4"
+						formControlName="country"
+					>
 						<option value="" selected></option>
-						<option *ngFor="let i of countries" [value]="i">{{ i }}</option>
+						<option *ngFor="let i of countries" [value]="i.country">
+							{{ i.country }}
+						</option>
 					</select>
+					<div
+						*ngIf="f?.['country']?.invalid && (f?.['country']?.touched || hasSubmitted)"
+						class="text-red-600"
+					>
+						<p *ngIf="f?.['country']?.errors?.['required']">
+							(*) Country is required
+						</p>
+					</div>
 				</div>
 				<div class="flex gap-2">
-					<input type="checkbox" />
+					<input type="checkbox" formControlName="agree" />
 					<p class="text-sm text-gray2">
 						I agree to the ZCL platform Privacy Policy and Terms
+					</p>
+				</div>
+				<div
+					*ngIf="f?.['agree']?.invalid && (f?.['agree']?.touched || hasSubmitted)"
+					class="text-red-600"
+				>
+					<p *ngIf="f?.['agree']?.errors?.['required']">
+						(*) Agree is required
 					</p>
 				</div>
 				<div class="flex gap-2">
@@ -111,7 +148,6 @@
 				</div>
 				<button
 					class="mt-10 h-10 w-full rounded-lg bg-blue1 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 text-white font-medium"
-					[disabled]="signInForm.invalid"
 					type="submit"
 				>
 					Sign up

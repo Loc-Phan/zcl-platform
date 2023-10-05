@@ -1,5 +1,9 @@
 import { Component } from "@angular/core";
-import { FormBuilder, Validators } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { ICountries, RegService } from "../services/reg.service";
+import { Router } from "@angular/router";
+import { UserService } from "../services/user.service";
+import { User } from "../models/user.model";
 
 @Component({
 	selector: "app-sign-up",
@@ -8,27 +12,47 @@ import { FormBuilder, Validators } from "@angular/forms";
 })
 export class SignUpComponent {
 	showPassword = false;
-	countries = ["Việt Nam", "Japan", "China"];
-	signInForm = this.fb.group({
-		email: ["", Validators.compose([Validators.required, Validators.email])],
-		password: [
-			"",
-			Validators.compose([
-				Validators.required,
-				Validators.minLength(6),
-				Validators.pattern(/^(?=.*[!@#$%^&*]+)[a-z0-9!@#$%^&*]{6,32}$/),
-			]),
-		],
-	});
 	hasSubmitted = false;
-	constructor(private fb: FormBuilder) {}
+	public countries: ICountries[] = [];
+	signUpForm: FormGroup;
+	constructor(
+		private fb: FormBuilder,
+		private userService: UserService,
+		private regService: RegService,
+		private router: Router
+	) {
+		this.signUpForm = this.fb.group({
+			firstName: ["", Validators.required],
+			lastName: ["", Validators.required],
+			email: ["", Validators.compose([Validators.required, Validators.email])],
+			password: [
+				"",
+				Validators.compose([
+					Validators.required,
+					Validators.minLength(6),
+					Validators.pattern(/^(?=.*[!@#$%^&*]+)[a-z0-9!@#$%^&*]{6,32}$/),
+				]),
+			],
+			country: ["", Validators.required],
+			agree: [false, Validators.requiredTrue],
+		});
+	}
 	get f() {
-		return this.signInForm.controls;
+		return this.signUpForm.controls;
 	}
 
-	ngOnInit(): void {}
+	ngOnInit(): void {
+		this.regService.getCountries().subscribe((data) => (this.countries = data));
+	}
 
 	onSubmit(): void {
-		console.log(this.signInForm.controls.password.errors);
+		this.hasSubmitted = true;
+		if (this.signUpForm.valid) {
+			this.userService.registerUser(this.signUpForm.value);
+			this.signUpForm.reset();
+			this.hasSubmitted = false;
+			alert("You have signned up successfully");
+			this.router.navigate(["/sign-in"]);
+		}
 	}
 }

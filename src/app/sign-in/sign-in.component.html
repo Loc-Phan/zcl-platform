@@ -7,35 +7,51 @@
 		/>
 		<div class="w-96">
 			<p class="mb-12 text-2.75xl font-bold">Sign in to ZCL platform</p>
-			<div>
+			<form [formGroup]="signInForm" class="form-group" (ngSubmit)="onSubmit()">
 				<div class="mb-6">
 					<p class="mb-2 text-black1 font-medium">Username</p>
 					<input
 						type="text"
-						class="w-full h-10 border rounded-lg border-gray1 px-4 py-3"
+						formControlName="email"
+						class="form-control w-full h-10 border rounded-lg border-gray1 px-4 py-3"
 						placeholder="you@company.com"
 					/>
+					<div
+						*ngIf="f?.['email']?.invalid && (f?.['email']?.touched || hasSubmitted)"
+						class="text-red-600"
+					>
+						<p *ngIf="f?.['email']?.errors?.['required']">
+							(*) Email is required
+						</p>
+						<p *ngIf="f?.['email']?.errors?.['email']">
+							Email must be a valid email address
+						</p>
+					</div>
 				</div>
 				<div class="mb-6">
 					<p class="mb-2 text-black1 font-medium">Password</p>
 					<div class="relative">
 						<input
 							[type]="showPassword ? 'text' : 'password'"
+							formControlName="password"
 							class="w-full h-10 border rounded-lg border-gray px-4 py-3"
 							placeholder="Enter your password"
 						/>
 						<div
-							class="absolute right-3 top-3 w-5 h-5 cursor-pointer"
-							(click)="showPassword = !showPassword"
+							*ngIf="f?.['password']?.invalid && (f?.['password']?.touched || hasSubmitted)"
+							class="text-red-600"
 						>
-							<img
-								src="{{
-									showPassword
-										? 'assets/icons/eye.svg'
-										: 'assets/icons/fi_eye-off.svg'
-								}}"
-								alt=""
-							/>
+							<p *ngIf="f?.['password']?.errors?.['required']">
+								(*) Password is required
+							</p>
+							<p *ngIf="f?.['password']?.errors?.['minlength']">
+								Password should be minimum 6 characters
+							</p>
+							<p
+								*ngIf="!f?.['password']?.errors?.['minlength'] && f?.['password']?.errors?.['pattern']"
+							>
+								Only alphabet, digit and at least one of !@#$%^&*
+							</p>
 						</div>
 					</div>
 					<p
@@ -64,7 +80,7 @@
 						</div>
 					</div>
 				</div>
-			</div>
+			</form>
 		</div>
 	</div>
 </div>
