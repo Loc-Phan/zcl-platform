@@ -38,7 +38,6 @@ export class SignInComponent {
 		if (this.signInForm.valid) {
 			if (token) {
 				localStorage.setItem("token", token.email);
-				alert("You have signned in successfully");
 				this.signInForm.reset();
 				this.router.navigate(["/"]);
 			} else {

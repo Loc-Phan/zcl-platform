@@ -1,7 +1,21 @@
-<div class="flex items-center h-20 w-full bg-black1 px-11">
-	<a routerLink="/">
-		<img src="assets/icons/zcl-icon.svg" alt="zcl-platform" />
-	</a>
-	<p class="ml-2 text-xl text-white font-bold">ZCL Platform</p>
+<div class="flex items-center justify-between h-20 w-full bg-black1 px-11">
+	<div class="flex items-center gap-2">
+		<a routerLink="/">
+			<img src="assets/icons/zcl-icon.svg" alt="zcl-platform" />
+		</a>
+		<p class="text-xl text-white font-bold">ZCL Platform</p>
+	</div>
+	<div *ngIf="isLoggedIn" class="flex gap-5">
+		<input
+			type="text"
+			class="w-80 h-10 rounded-lg bg-[#413f3c] text-sm text-white px-4 py-3"
+			placeholder="Search Platform"
+		/>
+		<div class="flex gap-3">
+			<img src="assets/icons/question.svg" alt="?" />
+			<img src="assets/icons/user.svg" alt="?" />
+			<img src="assets/icons/plus.svg" alt="?" />
+		</div>
+	</div>
 </div>
 <router-outlet></router-outlet>
