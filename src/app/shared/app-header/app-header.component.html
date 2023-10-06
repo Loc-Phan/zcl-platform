@@ -1,0 +1,21 @@
+<div class="flex justify-between border-b border-gray1 pb-5">
+	<div class="flex items-center gap-2">
+		<img
+      *ngIf="app?.src"
+			[src]="'assets/images/app-' + app?.src + '.png'"
+			class="w-10 h-10"
+			alt="app-icon"
+		/>
+		<p class="text-lg text-black1 font-bold">{{app?.name}}</p>
+	</div>
+	<div class="flex gap-6">
+		<div class="flex items-center gap-2 cursor-pointer">
+			<img class="w-5 h-5" src="assets/icons/airplay.svg" alt="view" />
+			<p class="text-black1">View App</p>
+		</div>
+		<div class="flex items-center gap-2 cursor-pointer">
+			<img class="w-5 h-5" src="assets/icons/edit.svg" alt="view" />
+			<p class="text-black1">Edit ZCL Tool</p>
+		</div>
+	</div>
+</div>

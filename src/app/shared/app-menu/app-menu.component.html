@@ -1,0 +1,12 @@
+<div *ngFor="let menu of menuList">
+	<p class="text-black1 font-bold leading-8">{{ menu.menu }}</p>
+	<div *ngFor="let subMenu of menu.subMenuList">
+		<a
+			class="leading-8"
+			[ngClass]="url === subMenu.url ? 'text-blue2' : 'text-gray2'"
+			[routerLink]="subMenu.url"
+		>
+			{{ subMenu.subMenu }}
+		</a>
+	</div>
+</div>
