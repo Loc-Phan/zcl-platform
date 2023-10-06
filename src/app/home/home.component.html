@@ -42,11 +42,13 @@
 		>
 			<div>
 				<div class="flex justify-between">
-					<img
-						class="w-14 h-14 cursor-pointer"
-						src="{{ 'assets/images/app-' + item?.src + '.png' }}"
-						alt="app-img"
-					/>
+					<div [routerLink]="'/application/' + item.id">
+						<img
+							class="w-14 h-14 cursor-pointer"
+							src="{{ 'assets/images/app-' + item?.src + '.png' }}"
+							alt="app-img"
+						/>
+					</div>
 					<div>
 						<img
 							class="cursor-pointer"
@@ -55,10 +57,10 @@
 						/>
 					</div>
 				</div>
-				<p class="mt-4 text-lg text-black1 font-bold">SLA_Task</p>
+				<p class="mt-4 text-lg text-black1 font-bold">{{ item.name }}</p>
 			</div>
 			<div class="flex justify-between">
-				<p class="text-sm text-gray2">Free App</p>
+				<p class="text-sm text-gray2">{{ item.des }}</p>
 				<div>
 					<img
 						class="cursor-pointer"

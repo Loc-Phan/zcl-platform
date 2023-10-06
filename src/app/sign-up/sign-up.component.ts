@@ -1,9 +1,8 @@
 import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { ICountries, RegService } from "../services/reg.service";
+import { ICountries, SignService } from "../services/sign-up.service";
 import { Router } from "@angular/router";
 import { UserService } from "../services/user.service";
-import { User } from "../models/user.model";
 
 @Component({
 	selector: "app-sign-up",
@@ -18,7 +17,7 @@ export class SignUpComponent {
 	constructor(
 		private fb: FormBuilder,
 		private userService: UserService,
-		private regService: RegService,
+		private signUpService: SignService,
 		private router: Router
 	) {
 		this.signUpForm = this.fb.group({
@@ -42,7 +41,9 @@ export class SignUpComponent {
 	}
 
 	ngOnInit(): void {
-		this.regService.getCountries().subscribe((data) => (this.countries = data));
+		this.signUpService
+			.getCountries()
+			.subscribe((data) => (this.countries = data));
 	}
 
 	onSubmit(): void {

@@ -9,8 +9,8 @@ export interface ICountries {
 @Injectable({
 	providedIn: "root",
 })
-export class RegService {
-	private _countriesURL: string = "/assets/countries.json";
+export class SignService {
+	private _countriesURL: string = "/assets/json/countries.json";
 
 	constructor(private http: HttpClient) {}
 

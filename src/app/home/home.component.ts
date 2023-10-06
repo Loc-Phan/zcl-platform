@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { HomeService, IApps } from "../services/home.service";
 
 @Component({
 	selector: "app-home",
@@ -16,36 +17,11 @@ export class HomeComponent {
 			value: "Pinned",
 		},
 	];
-	apps = [
-		{
-			name: "SLA_Task",
-			url: "",
-			src: "1",
-		},
-		{
-			name: "SLA_Task",
-			url: "",
-			src: "2",
-		},
-		{
-			name: "SLA_Task",
-			url: "",
-			src: "3",
-		},
-		{
-			name: "SLA_Task",
-			url: "",
-			src: "4",
-		},
-		{
-			name: "SLA_Task",
-			url: "",
-			src: "5",
-		},
-		{
-			name: "SLA_Task",
-			url: "",
-			src: "6",
-		},
-	];
+	public apps: IApps[] = [];
+
+	constructor(private homeService: HomeService) {}
+
+	ngOnInit(): void {
+		this.homeService.getApps().subscribe((data) => (this.apps = data));
+	}
 }

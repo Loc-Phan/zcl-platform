@@ -53,6 +53,19 @@
 								Only alphabet, digit and at least one of !@#$%^&*
 							</p>
 						</div>
+						<div
+							class="absolute right-3 top-3 w-5 h-5 cursor-pointer"
+							(click)="showPassword = !showPassword"
+						>
+							<img
+								src="{{
+									showPassword
+										? 'assets/icons/eye.svg'
+										: 'assets/icons/fi_eye-off.svg'
+								}}"
+								alt=""
+							/>
+						</div>
 					</div>
 					<p
 						class="mt-2 text-sm text-red-600 font-medium text-end cursor-pointer"
